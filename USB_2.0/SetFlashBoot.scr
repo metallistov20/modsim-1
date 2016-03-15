@@ -1,0 +1,4 @@
+// set GPNVM bit 2 (boot from flash)
+OUTPUT DWORD TO 0xFFFFFF64 = 0x5A00020B
+
+
