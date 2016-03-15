@@ -187,8 +187,17 @@ pTimepointType pChild, pTempPointChain;
 }
 
 /* Check if raw value is USB 1.0 <logical 0> and return '1' if so, return '0' otherwise */
-int iChkUsb10Lg0(QuasiFloatType qfltVal)
+int iChkUsb10Lg0(
+#if !defined(QUASIFLOAT) 
+float fltVal
+#else
+QuasiFloatType qfltVal
+#endif /* (!defined(QUASIFLOAT) ) */
+)
 {
+#if !defined(QUASIFLOAT) 
+	return 0;
+#else
 	/* USB 1.0 levels. Logical '0'. LOGIC_0_CURR */
 	if (
 		('+' == qfltVal.sgn) && (0 == qfltVal.power) &&
@@ -198,12 +207,21 @@ int iChkUsb10Lg0(QuasiFloatType qfltVal)
 	) return 1;
 
 	return 0;
+#endif /* (!defined(QUASIFLOAT) ) */
 }
 
 /* Check if raw value is USB 1.0 <logical 1> and return '1' if so, return '0' otherwise */
-int iChkUsb10Lg1(QuasiFloatType qfltVal)
+int iChkUsb10Lg1(
+#if !defined(QUASIFLOAT) 
+float fltVal
+#else
+QuasiFloatType qfltVal
+#endif /* (!defined(QUASIFLOAT) ) */
+)
 {
-
+#if !defined(QUASIFLOAT) 
+	return 0;
+#else
 	/* USB 1.0 levels. Logical '1'.  LOGIC_1_CURR */
 	if (
 		('+' == qfltVal.sgn) && (0 == qfltVal.power) &&
@@ -211,11 +229,21 @@ int iChkUsb10Lg1(QuasiFloatType qfltVal)
 	) return 1;
 
 	return 0;
+#endif /* (!defined(QUASIFLOAT) ) */
 }
 
 /* Check if raw value is USB 2.0 <logical 0> and return '1' if so, return '0' otherwise */
-int iChkUsb20Lg0(QuasiFloatType qfltVal)
+int iChkUsb20Lg0(
+#if !defined(QUASIFLOAT) 
+float fltVal
+#else
+QuasiFloatType qfltVal
+#endif /* (!defined(QUASIFLOAT) ) */
+)
 {
+#if !defined(QUASIFLOAT) 
+	return 0;
+#else
 	/* USB 2.0 levels. Logical '0'. LOGIC_0_CURR. -10 mV .. 10 mV */
 	if (
 		/* -1.xxxxx e-02 mV */
@@ -233,11 +261,21 @@ int iChkUsb20Lg0(QuasiFloatType qfltVal)
 		/* -0.00000 e+00, +0.00000 e+00 */
 		( (0 == qfltVal.integer) && ('+' == qfltVal.sgn ) && (0 == qfltVal.power) && (0 == qfltVal.fraction) )
 	) return;
+#endif /* (!defined(QUASIFLOAT) ) */
 }
 
 /* Check if raw value is USB 2.0 <logical 1> and return '1' if so, return '0' otherwise */
-int iChkUsb20Lg1(QuasiFloatType qfltVal)
+int iChkUsb20Lg1(
+#if !defined(QUASIFLOAT) 
+float fltVal
+#else
+QuasiFloatType qfltVal
+#endif /* (!defined(QUASIFLOAT) ) */
+)
 {
+#if !defined(QUASIFLOAT) 
+	return 0;
+#else
 	/* USB 2.0 levels. Logical '1'. LOGIC_1_CURR. 0.36V .. 0.44V */
 	if (
 		/* 3.60000e-01 .. 3.99999 e-01 */ /*last parenthesis: 600000-99999*/
@@ -248,7 +286,9 @@ int iChkUsb20Lg1(QuasiFloatType qfltVal)
 	) return 1;
 
 	return 0;
+#endif /* (!defined(QUASIFLOAT) ) */
 }
+
 
 /* Process Realtime and Relative-time values: certain data to be oputput onto Port D */
 int ProcRealAndRel(

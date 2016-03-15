@@ -26,6 +26,18 @@
 
 #endif /* (UCSIMM) */
 
+#if defined (ARM7_TDMI)
+/* On platform(s) usleep() declared in <unistd.h>, on NEWLIB-based baremetal(s) we do it ourselves */
+int usleep()
+{
+volatile int iTmoCritVal = 10;
+
+	do { ; } while (iTmoCritVal--);
+	
+}
+#endif /* (ARM7_TDMI) */
+
+
 /* Own interface, definitions */
 #include "dport.h"
 
