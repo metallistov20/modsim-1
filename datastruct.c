@@ -20,7 +20,8 @@
 /* stdout */
 #include <stdio.h>
 
-//f.o. #include <string.h>
+/* strlen() */
+#include <string.h>
 
 /* calloc() */
 #include <stdlib.h>
@@ -29,15 +30,16 @@
 #include <sys/time.h>
 
 /* Data structure type definition */
-#include "dstruct.h"
+#include "datastruct.h"
 
 /* Port D definitions, prototypes */
-#include "dport.h"
+#include "port_d.h"
 
-int iOldSecPRC;
+/* Errcode definitions */
+#include "modsim.h"
 
-/* Time measurement variables */
-struct timeval starttimePROC, endtimePROC;
+/* Time measurement variable to define begin of time scale */
+struct timeval starttimePROC;
 
 /* Attach 3 floats to tail of dynamic structure 'pTimepointType' */
 int _EnrollPoint(const char * caller, pTimepointType * ppThisPointChain, 
@@ -68,7 +70,7 @@ pTimepointType pChild, pTempPointChain;
 			__FILE__, caller, __func__);
 #endif /* !defined(QUASIFLOAT) */
 
-			return (-8);
+			return P_ERROR_MEM;
 		}
 
 #if !defined(QUASIFLOAT)
@@ -129,7 +131,7 @@ pTimepointType pChild, pTempPointChain;
 			__FILE__, caller, __func__);
 #endif /* !defined(QUASIFLOAT) */
 
-			return (-7);
+			return P_ERROR_MEM;
 		}
 
 #if !defined(QUASIFLOAT)
@@ -183,7 +185,8 @@ pTimepointType pChild, pTempPointChain;
 		pChild->pNext = pTempPointChain;
 
 	}
-	return (0);
+
+	return P_SUCCESS;
 }
 
 
@@ -226,7 +229,10 @@ double timeusePROC;
 #endif /* !defined(QUASIFLOAT) */
 #endif /* (DEBUG_DATA) */
 
+		/* Realtime and relative-time values */
+		ProcessPoint(pPointChain);
 
+#if 0
 #if !defined(QUASIFLOAT)
 		ProcRealAndRel(pPointChain->fltAbsTime, pPointChain->fltXval);
 #else
@@ -238,12 +244,13 @@ double timeusePROC;
 #endif /* (defined(DIN_FEEDBACK)) */ 
 
 #endif /* !defined(QUASIFLOAT) */
+#endif /* (0) */
 
 		/* Go to next record of chain */
 		pPointChain = pPointChain->pNext;
 	}
 
-	return 0;
+	return P_SUCCESS;
 }
 
 /* Free memory occupied by '*ppThisPointChain' */

@@ -31,4 +31,7 @@
 
 #define LARGE_BUF_SZ	0x100
 
+/* Phony definition to define the place where the code is yet to be added */
+#define none ;
+
 #endif /* _MODSIM_H_ */

@@ -17,8 +17,6 @@
  MA 02111-1307 USA
 */
 
-
-
 /* printf(), stdout */
 #include <stdio.h>
 
@@ -31,14 +29,18 @@
 /* Type 'pTimepointType' definition */
 #include "datastruct.h"
 
+/* PortD_Up(), PortD_Down(), PD0, PD1 */
+#include "port_d.h"
+
 /* Time measurement variable to define current position on time scale */
 struct timeval endtimePROC;
 
-/* Var. check if current second already was 'displayed' */
-int iOldSecPRC;
-
 /* Var. defined in 'datastruct.c' */
 extern struct timeval starttimePROC;
+
+/* Var. to check if current second already was 'displayed' */
+int iOldSecPRC;
+
 
 /* Check if raw value is USB 1.0 <logical 0> and return '1' if so, return '0' otherwise */
 int iChkUsb10Lg0( QuasiFloatType qfltVal )
@@ -66,21 +68,7 @@ int iChkUsb10Lg1( QuasiFloatType qfltVal )
 	return 0;
 }
 
-/* Process Realtime and Relative-time values: certain data to be oputput onto Port D */
-int ProcessPoint( pTimepointChain pTimepoint )
-
-#if defined(DIN_FEEDBACK)
-	QuasiFloatType qfltAbsTime,
-	QuasiFloatType qfltXval,
-	QuasiFloatType qfltYval,
-	char * pcMarq,
-	QuasiFloatType qfltAbsTime
-#else
-	QuasiFloatType qfltAbsTime,
-	QuasiFloatType qfltXval,
-	QuasiFloatType qfltAbsTime
-#endif /* (defined(DIN_FEEDBACK)) */
-#endif
+int ProcessPoint( pTimepointType pTimepoint )
 {
 
 QuasiFloatType qfltRelTime;
@@ -172,13 +160,13 @@ qfltJiffy.fraction = 1;
 
 
 		/* USB 1.0 levels. Logical '1'.  LOGIC_1_CURR */
-		if ( iChkUsb10Lg1(qfltXval) )
+		if ( iChkUsb10Lg1(pTimepoint->qfltXval) )
 
 			PortD_Up( PD0 );
 
 		else
 			/* USB 1.0 levels. Logical '0'. LOGIC_0_CURR */
-			if ( iChkUsb10Lg0(qfltXval) )
+			if ( iChkUsb10Lg0(pTimepoint->qfltXval) )
 
 				PortD_Down( PD0 );
 			else
@@ -188,15 +176,7 @@ qfltJiffy.fraction = 1;
 			/* Attention: overvoltage, U = 3.6++ Volts will be processed as logical zero, too. */
 
 #if defined(DIN_FEEDBACK)
-
 	;
-
 #endif /* (DIN_FEEDBACK) */
 
-#endif /* !defined(QUASIFLOAT) */
-
-
-
 }
-
-

@@ -17,8 +17,8 @@
  MA 02111-1307 USA
 */
 
-#ifndef _DSTUCT_H_
-#define _DSTUCT_H_
+#ifndef _DATASTUCT_H_
+#define _DATASTUCT_H_
 
 
 #if defined(UCSIMM)
@@ -99,4 +99,4 @@ void _DeletePoints(const char * caller, pTimepointType * ppThisPointChain);
 #define DeletePoints(x) _DeletePoints(__func__, (x))
 
 
-#endif /* _DSTUCT_H_ */
+#endif /* _DATASTUCT_H_ */

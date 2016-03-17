@@ -17,15 +17,27 @@
  MA 02111-1307 USA
 */
 
-#define none ;
+/* printf() */
+#include <stdio.h>
+
+/* struct timeval, gettimeofday() */
+#include <sys/time.h>
+
+/* Basic project definitions  */
+#include "modsim.h"
+
+/* Type 'pTimepointType' definition */
+#include "datastruct.h"
+
+/* Time measurement variable to define current position on time scale */
+struct timeval endtimePROC;
+
+/* Var. defined in 'datastruct.c' */
+extern struct timeval starttimePROC;
 
 /* Process Realtime and Relative-time values: certain data to be oputput onto Port D */
-int ProcRealAndRel(
-	float fltRealTime,
-	float fltXval
-	)
+int ProcessPoint(pTimepointType pTimepoint)
 {
-
 float fltRelTime;
 float _left, _right;
 float fltJiffy = 1.0;
@@ -42,12 +54,12 @@ value , it's OK to issue current value onto Port D.
 */
 
 	/* Operate uSeconds multiplied by 10e6 because <usleep> accepts	integer parameters only */
-	fltRealTime = fltRealTime*1000000;
+	pTimepoint->fltAbsTime = pTimepoint->fltAbsTime*1000000;
 
-	printf("[%s] : <BEFORE TIME SHIFTING> real tm.: %f\n", __FILE__, /* caller, */	fltRealTime	);
+	printf("[%s] : <BEFORE TIME SHIFTING> real tm.: %f\n", __FILE__, /* caller, */	pTimepoint->fltAbsTime	);
 
 	/* Don't proceed with this fuction once given an unappicable input data */
-	if (0.0 == fltRealTime ) return;
+	if (0.0 == pTimepoint->fltAbsTime ) return;
 
 	do 
 	{	/* Take current time */
@@ -61,31 +73,28 @@ value , it's OK to issue current value onto Port D.
 		if (fltRelTime < 0)
 
 			/* then '_right' is relative time, '_left' is real time */
-			_right = fltRelTime, _left = fltRealTime;
+			_right = fltRelTime, _left = pTimepoint->fltAbsTime;
 
 		/* If relative time stays on the right from 0, or is exctly 0 */
 		else
 			/* then '_right' is real time, '_left' is relative time */
-			_left = fltRelTime, _right = fltRealTime;
+			_left = fltRelTime, _right = pTimepoint->fltAbsTime;
 
 
 
-		/* Wait for relative time <fltRelTime> to catch up with real time <fltRealTime>  */
+		/* Wait for relative time <fltRelTime> to catch up with real time <pTimepoint->fltAbsTime>  */
 		usleep (fltJiffy);
 
-		printf("[%s] : <TIME SHIFTING> real tm.: %f, shiftable tm.: %f \n", __FILE__, fltRealTime,	fltRelTime ); 
+		printf("[%s] : <TIME SHIFTING> real tm.: %f, shiftable tm.: %f \n", __FILE__, pTimepoint->fltAbsTime,	fltRelTime ); 
 
 	} while (_right < _left);
 	
 	/* Now they're equal or least 'relative tm' is not less than 'real tm' */
 	printf("[%s] : <AFTER TIME SHIFTING> will pretend like <%f>, is same as <%f> \n", __FILE__,
-		fltRealTime,
+		pTimepoint->fltAbsTime,
 		fltRelTime );
 
 	/* Hardware Port 'D' processing. */
 	none
-
-
-
 
 }

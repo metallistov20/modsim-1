@@ -30,10 +30,10 @@
 #include "modsim.h"
 
 /* Data structures, mocros */
-#include "dstruct.h"
+#include "datastruct.h"
 
 /* Port D definitions and prototypes */
-#include "dport.h"
+#include "port_d.h"
 
 /* Pointer to raw data file */
 FILE *fp = NULL;
@@ -55,10 +55,10 @@ int iOldSec;
 
 int main ()
 {
-/////////////////////////
+#if defined(UCSIMM) 
 PortD_Prepare( );
 while (1) { PortD_Toggle(0xF0 ); usleep(10) ; }
-////////////////////////
+#endif /* (defined(UCSIMM) ) */
 
 
 	/* Try to open Raw Data file at place defined by 'FILE_NAME' */
@@ -147,8 +147,10 @@ if (0 == qfltTM.power) if (iOldSec!= qfltTM.integer){iOldSec=qfltTM.integer; pri
 
 	printf("\n[%s] %s: issuing USB-curve-data on Pin #0 Port 'D'\n", __FILE__, __func__);
 
+#if defined(UCSIMM) 
 	/* Set pins of Port D as inputs/outputs, sets rest platform registers */
 	PortD_Prepare( );
+#endif /* (defined(UCSIMM) ) */
 
 	/* Process data stored in dynamic structure pointed by 'pTimeChain' */
 	ProcessPoints(pTimeChain);

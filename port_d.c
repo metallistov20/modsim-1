@@ -39,7 +39,7 @@ volatile int iTmoCritVal = 10;
 
 
 /* Own interface, definitions */
-#include "dport.h"
+#include "port_d.h"
 
 /* Prepare Port 'D' */
 void PortD_Prepare()

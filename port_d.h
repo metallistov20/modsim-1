@@ -17,8 +17,8 @@
  MA 02111-1307 USA
 */
 
-#ifndef _DPORT_H_
-#define _DPORT_H_
+#ifndef _PORT_D_H_
+#define _PORT_D_H_
 
 /*
 BIT		Pin
@@ -75,6 +75,4 @@ ground, or 90 Ω differential to match the data cable impedance. */
 #endif /* (#if !defined(USB20)) */
 
 
-#endif /* _DPORT_H_ */
-
-
+#endif /* _PORT_D_H_ */

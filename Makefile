@@ -21,36 +21,30 @@ ifeq ($(strip $(platform)),)
 $(error "Define 'platform', as one of those: 'platform=PC', 'platform=DRAGONBALL', 'platform=ARM7TDMI'")
 endif
 
-#export TARGET
-
-
 ifeq ($(strip $(platform)),PC)
 	PREFIX=
 	CFLAGS=-O3
-	CFLAGS+= -DUSB20
 
-	OBJS= modsim.o dstruct.o hal_x86.o
+	OBJS= modsim.o datastruct.o hal_x86.o
 	GRBG=*.o *~ m
 else
 	ifeq ($(strip $(platform)),DRAGONBALL)
 		# Prefix for UCLIBC crosscompiler
 		PREFIX=m68k-pic-coff-
 		CFLAGS=-O3 -DUCSIMM -DQUASIFLOAT -I/opt/uClinux/m68k-pic-coff/include
-		CFLAGS+= -DUSB20 # TODO: REMOVE! On Drogonball is implemented USB 1.1 . 
 
-		OBJS= modsim.o dstruct.o hal_m68.o
+		OBJS= modsim.o datastruct.o hal_m68k.o port_d.o
 		GRBG=*.o *~ *.coff m
 	else
 		ifeq ($(strip $(platform)),ARM7TDMI)
-#once upen a shell start: PATH=/opt/xGCC-arm-tplink-eabi-baremetal/arm-tplink-eabi/bin:/opt/xGCC-arm-tplink-eabi-baremetal/bin:$PATH
-			# Prefix for ARM7TDMI's platform cross compiler ( which baremetal, so avoid using GLIBC/UCLIBC stuff)
+			# PATH=/opt/xGCC-arm-tplink-eabi-baremetal/arm-tplink-eabi/bin:/opt/xGCC-arm-tplink-eabi-baremetal/bin:$PATH
+			# Prefix for ARM7TDMI's platform cross compiler ( which is baremetal, so avoid using GLIBC/UCLIBC stuff)
 			PREFIX=arm-tplink-eabi-
 			CFLAGS=-O3 -DARM7_TDMI -I/opt/xGCC-arm-tplink-eabi-baremetal/arm-tplink-eabi/include  -Wl,-rpath-link /opt/xGCC-arm-tplink-eabi-baremetal/arm-tplink-eabi/lib 
 			CFLAGS+= -DUSB20
-			# CFLAGS+= -DDIN_FEEDBACK
 			LDFLAGS=-lc -lrdpmon
 
-			OBJS= modsim.o dstruct.o hal_arm9.o
+			OBJS= modsim.o datastruct.o hal_arm9.o
 			GRBG=*.o *~ m
 		endif
 	endif
