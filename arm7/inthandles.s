@@ -32,7 +32,7 @@ _enableInterrupts:
 	msr		cpsr_c, r1
 	ldmfd	sp!, {r1}
 	bx 		lr
-	.size   __enableInterrupts, . - __enableInterrupts
+	.size   _enableInterrupts, . - _enableInterrupts
 	.endfunc
 
 # -------------------------------------------------------------
@@ -47,7 +47,7 @@ _disableInterrupts:
 	msr		CPSR_c, r1
 	ldmfd	sp!, {r1}
 	bx		lr
-	.size   __disableInterrupts, . - __disableInterrupts
+	.size   _disableInterrupts, . - _disableInterrupts
 	.endfunc
 
 	.end

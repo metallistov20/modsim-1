@@ -22,14 +22,14 @@ SECTIONS
 
   .text :
   {
-	./startup.o (.text)         /* Startup code */
-	./inthandles.o (.text)
-	./example.o (.text)
-	./clock.o (.text)
-	./date_cnt.o (.text)
-	./func.o (.text)
-	./sort.o (.text)
-	./util.o (.text)
+	./arm7/startup.o (.text)         /* Startup code */
+	./arm7/inthandles.o (.text)
+	./arm7/modsim_main.o (.text)
+	./arm7/clock.o (.text)
+	./arm7/date_cnt.o (.text)
+	./arm7/func.o (.text)
+	./arm7/sort.o (.text)
+	./arm7/util.o (.text)
     ./*(.text)                   /* remaining code */
 
     *(.glue_7t) *(.glue_7)

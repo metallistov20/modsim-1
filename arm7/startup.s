@@ -127,7 +127,8 @@ DelayMax:		.word	0x1000
 Hard_Reset:  
 _app_entry:
 									/* 1st of all: disable interrupts... */
-		mov 	r0, #FFFFFFFF
+		mov 	r0, #FFFFFFFFh /* 17-03-2016. TODO: discover why this <Immediate Value> is not #FFFFFFFF  */
+
 		ldr 	r2, AIC_BASE_Adr
 		str 	r0, [r2, #AIC_IDCR]	/* disable interrupts globally */
 

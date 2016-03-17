@@ -40,18 +40,22 @@ else
 			# PATH=/opt/xGCC-arm-tplink-eabi-baremetal/arm-tplink-eabi/bin:/opt/xGCC-arm-tplink-eabi-baremetal/bin:$PATH
 			# Prefix for ARM7TDMI's platform cross compiler ( which is baremetal, so avoid using GLIBC/UCLIBC stuff)
 			PREFIX=arm-tplink-eabi-
-			CFLAGS=-O3 -DARM7_TDMI -I/opt/xGCC-arm-tplink-eabi-baremetal/arm-tplink-eabi/include  -Wl,-rpath-link /opt/xGCC-arm-tplink-eabi-baremetal/arm-tplink-eabi/lib 
-			CFLAGS+= -DUSB20
-			LDFLAGS=-lc -lrdpmon
+			CFLAGS=-O3 -DARM7_TDMI -DQUASIFLOAT -I/opt/xGCC-arm-tplink-eabi-baremetal/arm-tplink-eabi/include  -Wl,-rpath-link /opt/xGCC-arm-tplink-eabi-baremetal/arm-tplink-eabi/lib  -lc -lrdpmon
+			CFLAGS+= -DUSB20 
 
-			OBJS= modsim.o datastruct.o hal_arm7.o
-			GRBG=*.o *~ m
+			LDFLAGS=  -T ./arm7/modsim.ld
+
+			ASMFLAGS=-D__ASSEMBLY__ -Os  -I/opt/xGCC-arm-tplink-eabi-baremetal/arm-tplink-eabi/include  
+
+			OBJS= modsim.o datastruct.o hal_arm7.o ./arm7/startup.o ./arm7/inthandles.o ./arm7/clock.o  ./arm7/date_cnt.o  ./arm7/func.o  ./arm7/modsim_main.o  ./arm7/sort.o  ./arm7/util.o
+			GRBG=*.o *~ m ./arm7/*.o ./arm7/*.*~
 		endif
 	endif
 endif
 
 # (cross-)compiler
 CC=$(PREFIX)gcc
+LD=$(PREFIX)ld
 
 # Excessive debug info not needed when program is ready. Spoils 'realtime' operating mode. Keep commented-out.
 # CFLAGS+=-DDEBUG_DATA
@@ -59,12 +63,17 @@ CC=$(PREFIX)gcc
 # Checking Data-IN (backward data stream on D-); expected to be same as X(CH2) in raw data (CSV file) 
 # CFLAGS+= -DDIN_FEEDBACK
 
+.o: .s
+	$(CC) $(ASMFLAGS)   -o $@ -c $< 
+
 .o: .c
-	$(CC) $(CFLAGS)  -o $@ -c $< $(CFLAGS) $(LDFLAGS)
+	$(CC) $(CFLAGS)   -o $@ -c $< 
 
 all:	m
 
+
 m: $(OBJS)
-	$(CC) $(CFLAGS)  -o m $(OBJS)
+	$(LD) $(LDFLAGS)  -o m $(OBJS)
+
 clean:
 	rm $(GRBG)

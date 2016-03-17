@@ -158,3 +158,23 @@ if (0 == qfltTM.power) if (iOldSec!= qfltTM.integer){iOldSec=qfltTM.integer; pri
 
 	return P_SUCCESS;
 }
+
+/* 17-03-2016. TODO: Implement these UCLIBC-/GLIBC-functions  */
+_fopen:
+
+_fscanf:
+
+_calloc:
+
+_memcpy:
+
+_strlen:
+
+_calloc:
+
+_strcpy:
+
+_printf:
+
+_free:
+
