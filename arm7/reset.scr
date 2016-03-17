@@ -1,0 +1,11 @@
+reset target
+
+// disable watchdog
+OUTPUT DWORD TO 0xFFFFFD44 COUNT 1 PAUSE 1 = 0x0000FFFF
+
+// erase GPNVM bit 1 (disable BrownOut reset
+// OUTPUT DWORD TO 0xFFFFFF64 = 0x5A00010D
+
+register PC = 0
+register cpsr = 0xd3
+

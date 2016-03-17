@@ -109,7 +109,6 @@ pTimepointType pChild, pTempPointChain;
 			(*ppThisPointChain)->pcMarquee
 		);
 #endif /* !defined(QUASIFLOAT) */
-
 #endif /* (DEBUG_DATA) */
 
 	}
