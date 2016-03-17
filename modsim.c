@@ -17,14 +17,8 @@
  MA 02111-1307 USA
 */
 
-/* stdout, NULL, usw */
+/* stdout, NULL */
 #include <stdio.h>
-
-//f.o. #include <stdlib.h>
-
-//f.o. #include <string.h>
-
-//f.o. #include <memory.h>
 
 /* Own interface, definitions */
 #include "modsim.h"
