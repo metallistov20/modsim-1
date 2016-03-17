@@ -232,20 +232,6 @@ double timeusePROC;
 		/* Realtime and relative-time values */
 		ProcessPoint(pPointChain);
 
-#if 0
-#if !defined(QUASIFLOAT)
-		ProcRealAndRel(pPointChain->fltAbsTime, pPointChain->fltXval);
-#else
-
-#if defined(DIN_FEEDBACK)
-		ProcRealAndRel(pPointChain->qfltAbsTime, pPointChain->qfltXval, pPointChain->qfltYval, pPointChain->pcMarquee , pPointChain->qfltAbsTime);
-#else
-		ProcRealAndRel(pPointChain->qfltAbsTime, pPointChain->qfltXval, pPointChain->qfltAbsTime);
-#endif /* (defined(DIN_FEEDBACK)) */ 
-
-#endif /* !defined(QUASIFLOAT) */
-#endif /* (0) */
-
 		/* Go to next record of chain */
 		pPointChain = pPointChain->pNext;
 	}

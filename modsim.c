@@ -55,7 +55,7 @@ int iOldSec;
 
 int main ()
 {
-#if defined(UCSIMM) 
+#if defined(UCSIMM) //TODO: remove this HW testing workaround.
 PortD_Prepare( );
 while (1) { PortD_Toggle(0xF0 ); usleep(10) ; }
 #endif /* (defined(UCSIMM) ) */
