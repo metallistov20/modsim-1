@@ -44,7 +44,7 @@ else
 			CFLAGS+= -DUSB20
 			LDFLAGS=-lc -lrdpmon
 
-			OBJS= modsim.o datastruct.o hal_arm7.o
+			OBJS= modsim.o datastruct.o hal_arm9.o
 			GRBG=*.o *~ m
 		endif
 	endif
