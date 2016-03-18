@@ -236,7 +236,7 @@ LoopZI:
 	    BLO     LoopZI
 
 # Enter the C code
-	    B       main
+	    B       modsim_main
         .size   _startup, . - _startup
         .endfunc
 

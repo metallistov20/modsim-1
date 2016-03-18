@@ -27,7 +27,7 @@
 #include "date_cnt.h"
 #include "util.h"
 #include "sort.h"
-#include "example.h"
+#include "modsim_main.h"
 #include "ioat91sam7x256.h"
 
 void msec5_isr (void);
@@ -84,7 +84,7 @@ static void random(void)
 }
 
 
-int main(void)
+int modsim_main(void)
 {
 	static   uint8_t     Mem[MEMBUF_LEN];
 	static   uint8_t     *MemPtr;

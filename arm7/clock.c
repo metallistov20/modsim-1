@@ -22,7 +22,7 @@
 /* To declare external variables and functions */
 #define global extern   
 
-#include "example.h"
+#include "modsim_main.h"
 #include "clock.h"
 #include "func.h"
 #include "date_cnt.h"
@@ -48,7 +48,8 @@ struct WATCH
 	uint16_t  Hour;
 } Watch;
 
-void init_clock(void)
+//void init_clock(void)
+void init_clock()
 {
 	Clock.MilliSec   = 0u;
 	Clock.Sec       = 0u;

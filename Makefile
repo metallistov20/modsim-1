@@ -42,12 +42,13 @@ else
 			PREFIX=arm-tplink-eabi-
 			CFLAGS=-O3 -DARM7_TDMI -DQUASIFLOAT -I/opt/xGCC-arm-tplink-eabi-baremetal/arm-tplink-eabi/include  -Wl,-rpath-link /opt/xGCC-arm-tplink-eabi-baremetal/arm-tplink-eabi/lib  -lc -lrdpmon
 			CFLAGS+= -DUSB20 
+			CFLAGS+= -DREENT_ONLY
 
 			LDFLAGS=  -T ./arm7/modsim.ld
 
 			ASMFLAGS=-D__ASSEMBLY__ -Os  -I/opt/xGCC-arm-tplink-eabi-baremetal/arm-tplink-eabi/include  
 
-			OBJS= modsim.o datastruct.o hal_arm7.o ./arm7/startup.o ./arm7/inthandles.o ./arm7/clock.o  ./arm7/date_cnt.o  ./arm7/func.o  ./arm7/modsim_main.o  ./arm7/sort.o  ./arm7/util.o
+			OBJS= modsim.o datastruct.o hal_arm7.o ./arm7/startup.o ./arm7/inthandles.o   ./arm7/modsim_main.o  ./arm7/clock.o ./arm7/date_cnt.o  ./arm7/func.o ./arm7/sort.o ./arm7/util.o  ./arm7/subst.o
 			GRBG=*.o *~ m ./arm7/*.o ./arm7/*.*~
 		endif
 	endif

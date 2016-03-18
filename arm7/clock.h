@@ -22,16 +22,22 @@
 
 void init_clock(void);
 
-global void inc_clock(void);
+//global void inc_clock(void);
+void inc_clock(void);
 
-global void signal_clock(void);
+//global void signal_clock(void);
+void signal_clock(void);
 
-global void convert_clock(void);
+//global void convert_clock(void);
+void convert_clock(void);
 
-global void analog_clock(void);
+//global void analog_clock(void);
+void analog_clock(void);
 
-global void copy_clock(uint8_t *Buf);
+//global void copy_clock(uint8_t *Buf);
+void copy_clock(uint8_t *Buf);
 
-global uint16_t get_clock(void);
+//global uint16_t get_clock(void);
+uint16_t get_clock(void);
 
 #endif /* _CLOCK_H_ */

@@ -22,7 +22,7 @@
 /* to declare external variables and functions */
 #define global extern   
 
-#include "example.h"
+#include "modsim_main.h"
 
 
 #undef global
